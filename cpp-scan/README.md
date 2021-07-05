@@ -35,12 +35,18 @@ If you can produce a compilation database in the [Clang JSON format](https://cla
 - Run in on a command that builds the code, this generates the **compile_commands.json** file, then convert this file to build wrapper output format
 ```
 compiledb make -B
-./convert-compile-commands.py compile_commands.json bw-output
 ```
 (This can also be done in 1 go with the command `make comp-db`, see makefile)
+- Add in your sonar-project.properties file the setting `sonar.cfamily.compile-commands=build/compile_commands.json`
 - Run the scanner
 
-Even better, some compilation tools can generate the compilation DB without actually compiling the code (eg `make --dry-run`), and this is obviously much faster. So you may even analyze C++ code without compiling it. Example: `make --dry-run -B` emulates compilation but does not actually compiles. So you may run `compiledb make --dry-run -B` to generate the compilation DB without even compiling
+Note 1: Even better, some compilation tools can generate the compilation DB without actually compiling the code (eg `make --dry-run`), and this is obviously much faster. So you may even analyze C++ code without compiling it. Example: `make --dry-run -B` emulates compilation but does not actually compiles. So you may run `compiledb make --dry-run -B` to generate the compilation DB without even compiling
+
+Note 2: Alternatively you can convert the compilation database to the build wrapper format and still use the `sonar.cfamily.build-wrapper-output` property in your `sonar-project.properties` file. The `./convert-compile-commands.py` script in this repository gives quick and dirty way to convert the files.
+
+```
+./convert-compile-commands.py build/compile_commands.json bw-output
+```
 
 ## Importing `clang-tidy` findings in SonarQube
 
