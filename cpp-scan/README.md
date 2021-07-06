@@ -61,3 +61,4 @@ compiledb make --dry-run build-only
 clang-tidy -checks='*' -header-filter="^include" src/*.cc -p . > build/clang-tidy-report.txt
 ./convert-compile-commands.py build/compile_commands.json bw-output
 ```
+This can be done all in 1 go with `make clang-tidy`
