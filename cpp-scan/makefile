@@ -18,7 +18,7 @@ clean:
 
 clang-tidy:
 	clang-tidy -checks='*' -header-filter="^include" src/*.cc -p $(BUILDDIR) > $(BUILDDIR)/clang-tidy-report.txt
-	./clang-tidy-to-sonar.py < $(BUILDDIR)/clang-tidy-report.txt > $(BUILDDIR)/generic-issue-report.json
+	./clang-tidy-to-sonar.py < $(BUILDDIR)/clang-tidy-report.txt > $(BUILDDIR)/clang-tidy-generic-issues.json
 
 comp-db-to-bw: comp-db
 	./convert-compile-commands.py $(BUILDDIR)/compile_commands.json bw-output
